@@ -9,7 +9,7 @@ Unlike regularly Next.js projects, this is intended to be use as a "Backend" lik
 Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
 
 ```bash
-npx create-next-app my-next-app -e https://github.com/memenovation/next-api
+npx create-next-app my-next-api-server -e https://github.com/memenovation/next-api
 # or
-yarn create next-app my-next-app -e https://github.com/memenovation/next-api
+yarn create next-app my-next-api-server -e https://github.com/memenovation/next-api
 ```
