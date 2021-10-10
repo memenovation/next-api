@@ -13,3 +13,9 @@ npx create-next-app my-next-api-server -e https://github.com/memenovation/next-a
 # or
 yarn create next-app my-next-api-server -e https://github.com/memenovation/next-api
 ```
+
+## Deploy your own
+
+Deploy the example using [Vercel](https://vercel.com/):
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/memenovation/next-api)
