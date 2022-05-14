@@ -1,7 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import NextCors from "nextjs-cors";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+//functions
+import { apiHandler } from "@functions/api/APIHandler";
+
+//types
+import { UpdatedNextApiRequest } from "@Types/index";
+
+//api handler to wrap all endpoints
+export default apiHandler(handler);
+
+/*
+  This route is not added as an endpoint in src/configs/ActiveEndpoints.ts, 
+  so when calling this endpoint, it will throw an error and return a 500 error.
+*/
+async function handler(req: UpdatedNextApiRequest, res: NextApiResponse) {
   await NextCors(req, res, {
     // Options
     methods: ["GET", "HEAD", "PUT", "POST", "OPTIONS"],
@@ -15,5 +28,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return;
   }
 
-  res.status(200).json({ name: "John Doe" });
-};
+  res.status(200).json({ name: "Inactive" });
+}
