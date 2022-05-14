@@ -9,13 +9,13 @@ export const ActiveEndpoints = [
   {
     name: "hello",
     purpose: "Say Hello",
-    endpoint: "/api/v1/hello",
+    endpoint: "/api/v1/example/hello",
     active: true,
   },
   {
     name: "inactive",
     purpose: "Inactive endpoint example",
-    endpoint: "/api/v1/inactive",
+    endpoint: "/api/v1/example/inactive",
     active: false,
   },
 ];
