@@ -2,6 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { ActiveEndpoints } from "@configs/ActiveEndpoints";
 
 export function middleware(req: NextRequest) {
+  //basic api key auth headers implementation
+  const authorization = req.headers.get("Authorization");
+  if (!authorization || authorization !== `Bearer ${process.env.AUTH_TOKEN}`) {
+    return errorHandler(404, "Not Authorized");
+  }
   // check if endpoint is defined as active
   const requestURL = req?.page?.name;
   if (
