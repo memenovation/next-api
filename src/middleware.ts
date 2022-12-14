@@ -1,14 +1,21 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import { ActiveEndpoints } from "@configs/ActiveEndpoints";
+
+export const config = {
+  matcher: "/api/:path*",
+};
 
 export function middleware(req: NextRequest) {
   //basic api key auth headers implementation
   const authorization = req.headers.get("Authorization");
   if (!authorization || authorization !== `Bearer ${process.env.AUTH_TOKEN}`) {
-    return errorHandler(404, "Not Authorized");
+    return errorHandler(401, "Not Authorized");
   }
   // check if endpoint is defined as active
-  const requestURL = req?.page?.name;
+  const requestURL = req.nextUrl.pathname;
+  console.log("requestURL", requestURL);
+
   if (
     !ActiveEndpoints.some(
       (endpoint) => endpoint.endpoint === requestURL && endpoint.active
@@ -20,10 +27,8 @@ export function middleware(req: NextRequest) {
 }
 
 function errorHandler(statusCode: number, message: string) {
-  return new Response(JSON.stringify({ message: message }), {
-    status: statusCode,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  return new NextResponse(
+    JSON.stringify({ success: false, message: message }),
+    { status: statusCode, headers: { "content-type": "application/json" } }
+  );
 }
