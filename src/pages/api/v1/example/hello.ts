@@ -1,28 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import NextCors from "nextjs-cors";
 
 //functions
-import { apiHandler } from "@functions/api/APIHandler";
-
-//types
-import { UpdatedNextApiRequest } from "@Types/index";
+import { apiHandler, errorThrower } from "@functions/api/APIHandler";
 
 //api handler to wrap all endpoints
-export default apiHandler(handler);
+export default apiHandler(handler, ["GET"]);
 
-async function handler(req: UpdatedNextApiRequest, res: NextApiResponse) {
-  await NextCors(req, res, {
-    // Options
-    methods: ["GET", "HEAD", "PUT", "POST", "OPTIONS"],
-    origin: "*",
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  });
-
-  /* ------------------- check if request method is correct ------------------- */
-  if (req.method !== "GET") {
-    res.status(400).json({ error: "Invalid Request" });
-    return;
+async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.query?.name != "John Doe") {
+    errorThrower(400, "Name is not John Doe");
   }
 
-  res.status(200).json({ name: "John Doe" });
+  res.status(200).json({ message: "Hello John Doe" });
 }
