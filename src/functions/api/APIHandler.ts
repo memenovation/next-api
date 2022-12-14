@@ -21,10 +21,8 @@ export const apiHandler = (
     });
 
     //check if method is allowed
-    if (!allowedMethods.includes(req.method as Methods)) {
-      return res.status(405).end(`Method ${req.method} Not Allowed`);
-    }
-
+    if (!allowedMethods.includes(req.method as Methods))
+      errorHandler({ code: 405, message: "Method not allowed" }, res);
     try {
       // route handler
       await handler(req, res);
